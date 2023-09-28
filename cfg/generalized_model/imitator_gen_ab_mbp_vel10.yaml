@@ -1,0 +1,76 @@
+lightning:
+  trainer:
+    max_epochs: 2
+    check_val_every_n_epoch: 2
+    save_top_k: 1
+    progress_bar_refresh_rate: 10
+    early_stopping_metric:
+      patience: 50 # with parameters check_val_every_n_epoch=10 and patience=3, the trainer will perform at least 40 training
+      mode: min
+      verbose: True
+      strict: True # whether to crash the training if monitor is not found in the validation metrics.
+
+model:
+  target: imitator.pl_trainer.Imitator
+  params:
+    optim_params:
+      lr: 0.0001
+      weight_decay: 0
+      lr_sch_factor: 0.85
+      lr_sch_patience: 5000
+    monitor: val/net_loss
+    nn_model_cfg:
+      target: imitator.models.nn_model.imitator
+      params:
+        dataset: "vocaset"
+        vertice_dim: 15069
+        feature_dim: 64
+        period: 30
+        gradient_accumulation_steps: 1
+        num_identity_classes: 8
+        train_teacher_forcing: False # if  True; we run audio feat extraction for every epoch
+        wav2vec_model: projects/dataset/voca_face_former/wav2vec2-base-960h
+        wav2vec_static_features: False
+        # dec layers
+        num_dec_layers: 5
+        fixed_channel: True
+        style_concat: False
+        # train details
+        train_subjects: "FaceTalk_170728_03272_TA FaceTalk_170904_00128_TA FaceTalk_170725_00137_TA FaceTalk_170915_00223_TA FaceTalk_170811_03274_TA FaceTalk_170913_03279_TA FaceTalk_170904_03276_TA FaceTalk_170912_03278_TA"
+    loss_cfg:
+      mbp_reconstruction_loss:
+        closed_frame_weight: 5
+        frame_weight_path: projects/dataset/voca_face_former/mbp_weights_win03_weight05
+      velocity_weight: 10.0
+      first_frame_loss_weight: 0.0
+
+#data:
+#  target: faceformer.modules.data_loader.DataModuleFromConfig
+#  dataset: "voca_former_vert_pred_full_training"
+#  params:
+#    dataset: "vocaset"
+#    dataset_root: "projects/dataset/voca_face_former"
+#    wav_path: "wav"
+#    vertices_path: "vertices_npy"
+#    template_file: "templates.pkl"
+#    # num_iden_cls: 8
+#    train_subjects: "FaceTalk_170728_03272_TA FaceTalk_170904_00128_TA FaceTalk_170725_00137_TA FaceTalk_170915_00223_TA FaceTalk_170811_03274_TA FaceTalk_170913_03279_TA FaceTalk_170904_03276_TA FaceTalk_170912_03278_TA"
+#    # train_subjects: "FaceTalk_170728_03272_TA FaceTalk_170904_00128_TA"
+#    val_subjects: "FaceTalk_170811_03275_TA FaceTalk_170908_03277_TA"
+#    test_subjects: "FaceTalk_170809_00138_TA FaceTalk_170731_00024_TA"
+
+data:
+  target: imitator.data.debug_data_loader.DataModuleFromConfig
+  dataset: "voca_former_vert_pred_full_training"
+  params:
+    dataset: "vocaset"
+    dataset_root: "projects/dataset/voca_face_former"
+    wav_path: "wav"
+    vertices_path: "vertices_npy"
+    template_file: "templates.pkl"
+    num_iden_cls: 8
+    train_subjects: "FaceTalk_170728_03272_TA FaceTalk_170904_00128_TA FaceTalk_170725_00137_TA FaceTalk_170915_00223_TA FaceTalk_170913_03279_TA FaceTalk_170904_03276_TA FaceTalk_170912_03278_TA"
+    val_subjects: "FaceTalk_170811_03275_TA FaceTalk_170908_03277_TA"
+    test_subjects: "FaceTalk_170809_00138_TA FaceTalk_170731_00024_TA"
+    mode: debug
+    num_seq: 2

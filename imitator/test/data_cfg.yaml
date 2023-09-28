@@ -1,0 +1,41 @@
+data:
+  target: imitator.data.data_loader_actor_wise_custom_init.DataModuleFromConfig
+  dataset: "voca_former_vert_pred_full_training"
+  conditiion_id: 2
+  params:
+    dataset: "vocaset"
+    dataset_root: "projects/dataset/voca_face_former"
+    wav_path: "wav"
+    vertices_path: "vertices_npy"
+    template_file: "templates.pkl"
+    num_iden_cls: 8
+    train_subjects_all: "FaceTalk_170728_03272_TA FaceTalk_170904_00128_TA FaceTalk_170725_00137_TA
+          FaceTalk_170915_00223_TA FaceTalk_170811_03274_TA FaceTalk_170913_03279_TA
+          FaceTalk_170904_03276_TA FaceTalk_170912_03278_TA"
+    train_subjects: "FaceTalk_170728_03272_TA FaceTalk_170725_00137_TA FaceTalk_170913_03279_TA FaceTalk_170904_03276_TA"
+    sequence_for_training: "1 2"
+    # 2 seq x 2 subj x 4 id : Render 16 seqs for train : 30 sec = 8 mins
+    val_subjects: "FaceTalk_170811_03275_TA FaceTalk_170908_03277_TA"
+    sequence_for_validation: "21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40"
+    test_subjects: "FaceTalk_170809_00138_TA FaceTalk_170731_00024_TA"
+    sequence_for_testing: "21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40"
+
+data_style_cfg:
+  target: imitator.data.data_loader_actor_wise_custom_init.DataModuleFromConfig
+  dataset: "voca_former_vert_pred_full_training"
+  conditiion_id: 2 # default condition
+  params:
+    dataset: "vocaset"
+    dataset_root: "projects/dataset/voca_face_former"
+    wav_path: "wav"
+    vertices_path: "vertices_npy"
+    template_file: "templates.pkl"
+    num_iden_cls: 8
+    train_subjects_all: "FaceTalk_170728_03272_TA FaceTalk_170904_00128_TA FaceTalk_170725_00137_TA FaceTalk_170915_00223_TA FaceTalk_170811_03274_TA FaceTalk_170913_03279_TA FaceTalk_170904_03276_TA FaceTalk_170912_03278_TA"
+    default_init_subject: "FaceTalk_170725_00137_TA"
+    train_subjects: "FaceTalk_170731_00024_TA"
+    sequence_for_training: "1 5"
+    val_subjects: "FaceTalk_170731_00024_TA"
+    sequence_for_validation: "19 21"
+    test_subjects: "FaceTalk_170731_00024_TA"
+    sequence_for_testing: "21 41"
