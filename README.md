@@ -48,13 +48,12 @@ python imitator/test_model_external_audio.py -m pretrained_model/generalized_mod
 - `-d` to dump the prediction as npy files
 
 ### Testing on VOCA
-To evaluate the generalized model on VOCA
+To evaluate the generalized/personalized model on VOCA
 ```
 python imitator/test_model_voca.py -m pretrained_model/generalized_model_mbp -r -d
 python imitator/test_model_voca.py -m pretrained_model/subj0024_stg02_04seq -r -d
 python imitator/test_model_voca.py -m pretrained_model/subj0138_stg02_04seq -r -d
 ```
-The script will run generalized model on the VOCA testset:
 - `-c` to specify the config of the dataset; edit the imitator/test/data_cfg.yml to point to your dataset path.
 
 ## Data Preparation
