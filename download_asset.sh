@@ -10,6 +10,9 @@ while true; do
     esac
 done
 
+echo "Unzip the mmbp weights"
+unzip assets/release/mbp_weights_win03_weight05.zip -d assets/release
+
 echo "Downloading assets to run Imitator..."
 
 echo "Downloading Imitator pretrained model..."

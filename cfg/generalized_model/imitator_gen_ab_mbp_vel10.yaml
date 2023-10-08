@@ -40,7 +40,7 @@ model:
     loss_cfg:
       mbp_reconstruction_loss:
         closed_frame_weight: 5
-        frame_weight_path: projects/dataset/voca_face_former/mbp_weights_win03_weight05
+        frame_weight_path: assets/release/mbp_weights_win03_weight05
       velocity_weight: 10.0
       first_frame_loss_weight: 0.0
 

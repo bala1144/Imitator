@@ -14,7 +14,7 @@ class MBP_reconstruction_loss():
 
         mbp_config = self.loss_dict.get('mbp_reconstruction_loss')
         weight_path = mbp_config.get("frame_weight_path")
-        weight_path = os.path.join(os.getenv("HOME"), weight_path)
+        # weight_path = os.path.join(os.getenv("HOME"), weight_path)
         print("Loading the  mbp weight from ", weight_path)
 
         ## load the weights
