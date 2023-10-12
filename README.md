@@ -20,15 +20,30 @@
 
 ## Installation
 
+Linux:
 ```
 git clone https://github.com/bala1144/Imitator.git
 cd Imitator
 bash install.sh
 ```
 
-## Overview of pretrained models
+Windows:
+```
+git clone https://github.com/bala1144/Imitator.git
+cd Imitator
+install.bat
+```
 
-`bash download_asset.sh`
+## Overview of pretrained models
+Linux:
+```
+bash download_asset.sh
+```
+
+Windows:
+```
+download_asset.bat
+```
 
 We will update 3 pretrained models
 - generalized_model_mbp (Generalized model on VOCAset)
@@ -39,7 +54,7 @@ We will update 3 pretrained models
 
 To evaluate the external audio, you can use the demo audio on the `assets/demo/`
 ```
-python imitator/test_model_external_audio.py -m pretrained_model/generalized_model_mbp --audio assets/demo/audio1.wav -t FaceTalk_170731_00024_TA -c 2 -r -d 
+python imitator/test/test_model_external_audio.py -m pretrained_model/generalized_model_mbp_vel --audio assets/demo/audio1.wav -t FaceTalk_170731_00024_TA -c 2 -r -d 
 ```
 - `-a` path to the audio file
 - `-t` specify the subject of the VOCA
@@ -50,17 +65,43 @@ python imitator/test_model_external_audio.py -m pretrained_model/generalized_mod
 ### Testing on VOCA
 To evaluate the generalized/personalized model on VOCA
 ```
-python imitator/test_model_voca.py -m pretrained_model/generalized_model_mbp -r -d
-python imitator/test_model_voca.py -m pretrained_model/subj0024_stg02_04seq -r -d
-python imitator/test_model_voca.py -m pretrained_model/subj0138_stg02_04seq -r -d
+python imitator/test/test_model_voca.py -m pretrained_model/generalized_model_mbp_vel -r -d
+python imitator/test/test_model_voca.py -m pretrained_model/subj0024_stg02_04seq -r -d
+python imitator/test/test_model_voca.py -m pretrained_model/subj0138_stg02_04seq -r -d
 ```
 - `-c` to specify the config of the dataset; edit the imitator/test/data_cfg.yml to point to your dataset path.
 
+### Overriding config file (optional)
+
+The directories of VOCA dataset and wav2vec model might differ from one to one. 
+
+Set environment variables (`VOCASET_PATH`, `WAV2VEC_PATH`) to run test scripts mentioned above, if you find it hard to find or modify config files (*.yaml).
+
+Linux:
+```
+export VOCASET_PATH=<Path to vocaset folder>
+export WAV2VEC_PATH=<Path to wav2vec model folder (e.g. wav2vec2-base-960h)>
+```
+
+Windows:
+```
+set VOCASET_PATH=<Path to vocaset folder>
+set WAV2VEC_PATH=<Path to wav2vec model folder (e.g. wav2vec2-base-960h)>
+```
 ## Data Preparation
 
 ### VOCA
 Download the [VOCA](https://voca.is.tue.mpg.de/) and prepare using the script from [Faceformer](https://github.com/EvelynFan/FaceFormer)
- `python process_voca_data.py`
+```
+git clone https://github.com/EvelynFan/FaceFormer.git
+cd FaceFormer/vocaset
+python process_voca_data.py
+cd ../..
+```
+
+### wav2vec model (optional, for offline use)
+
+Download wav2vec model, for example [wav2vec2-base-960h](https://huggingface.co/facebook/wav2vec2-base-960h) from [HuggingFace](https://huggingface.co/).
 
 ## Training models
 
