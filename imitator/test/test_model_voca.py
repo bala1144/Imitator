@@ -20,12 +20,14 @@ def get_latest_checkpoint(ckpt_dir, pre_fix="epoch") -> str:
     :return: latest checkpoint file
     """
     # Find all the every validation checkpoints
-    # print("{}/*{}.ckpt".format(ckpt_dir,pre_fix))
+    print(ckpt_dir, pre_fix)
+    print("{}/{}*.ckpt".format(ckpt_dir,pre_fix))
     list_of_files = glob.glob("{}/{}*.ckpt".format(ckpt_dir,pre_fix))
     # print(list_of_files)
     latest_checkpoint = None
     if list_of_files:
         latest_checkpoint = max(list_of_files, key=os.path.getctime)
+        latest_checkpoint = latest_checkpoint.replace('\\','/')
     print('Best checkpoint', latest_checkpoint)
     return latest_checkpoint
 
@@ -142,10 +144,15 @@ class test_dataset_wise():
             if self.args.render_results:
                 vid_dir = os.path.join(out_dir, "vid")
                 os.makedirs(vid_dir, exist_ok=True)
-                audio_file = os.path.join(os.getenv("HOME"),
-                                          data.data_cfg["dataset_root"],
+                if os.getenv("VOCASET_PATH"):
+                    audio_file = os.path.join(os.getenv("VOCASET_PATH"),
                                           data.data_cfg["wav_path"],
                                           file_name[0])
+                else:
+                    audio_file = os.path.join(os.getenv("HOME"),
+                                            data.data_cfg["dataset_root"],
+                                            data.data_cfg["wav_path"],
+                                            file_name[0])
                 self.rh.visualize_meshes(vid_dir, seq_name, pred.reshape(-1, 5023,3), audio_file)
 
             if self.args.dump_results:

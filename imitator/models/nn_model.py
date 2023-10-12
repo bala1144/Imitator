@@ -178,7 +178,10 @@ class imitator(nn.Module):
         self.train_subjects = args.train_subjects.split(" ")
         self.dataset = args.dataset
 
-        if hasattr(args, 'wav2vec_model'):
+        if os.getenv('WAV2VEC_PATH'):
+            wav2vec_path = os.getenv('WAV2VEC_PATH')
+            self.audio_encoder = Wav2Vec2Model.from_pretrained(wav2vec_path)
+        elif hasattr(args, 'wav2vec_model'):
             wav2vec_path = os.path.join(os.getenv('HOME'), args.wav2vec_model)
             self.audio_encoder = Wav2Vec2Model.from_pretrained(wav2vec_path)
         else:

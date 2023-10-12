@@ -1,4 +1,5 @@
 import os
+import sys
 from tqdm import tqdm
 import cv2
 from imitator.utils.util_pyrenderer import Facerender
@@ -77,7 +78,12 @@ class render_helper():
         os.system(ffmpeg_command)
         print("added audio to the video", out_vid_w_audio_file)
 
-        rm_command = ('rm {0} '.format(video_file))
+        if sys.platform.startswith('win'):
+            rm_command = ('del "{0}" '.format(video_file))
+            print(rm_command)
+        else:
+            rm_command = ('rm {0} '.format(video_file))
+        
         os.system(rm_command)
         print("removed ", video_file)
 

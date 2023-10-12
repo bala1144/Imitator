@@ -16,12 +16,18 @@ from imitator.utils.init_from_config import instantiate_from_config
 class test_on_audio():
 
     def __init__(self):
-        wav2vec_model = "projects/dataset/voca_face_former/wav2vec2-base-960h"
-        wav2vec_path = os.path.join(os.getenv('HOME'), wav2vec_model)
+        if os.getenv("WAV2VEC_PATH"):
+            wav2vec_path = os.getenv("WAV2VEC_PATH")
+        else:
+            wav2vec_model = "projects/dataset/voca_face_former/wav2vec2-base-960h"
+            wav2vec_path = os.path.join(os.getenv('HOME'), wav2vec_model)
         self.processor = Wav2Vec2Processor.from_pretrained(wav2vec_path)
         self.rh = render_helper()
 
-        template_file = os.path.join(os.getenv("HOME"), "projects/dataset/voca_face_former", "templates.pkl")
+        if os.getenv("VOCASET_PATH"):
+            template_file = os.path.join(os.getenv("VOCASET_PATH"), "templates.pkl")
+        else:
+            template_file = os.path.join(os.getenv("HOME"), "projects/dataset/voca_face_former", "templates.pkl")
         with open(template_file, 'rb') as handle:
             self.templates = pickle.load(handle, encoding='latin1')
 
