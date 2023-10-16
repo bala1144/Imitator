@@ -13,11 +13,17 @@
 ![teaser](assets/teaser.png)
 [arXiv](https://arxiv.org/abs/2301.00023) | [BibTeX](#bibtex) | [Project Page](https://balamuruganthambiraja.github.io/Imitator/)
 
+###
 
 ### News
 - Accepted to ICCV 2023
-- Code uploaded on Sep 27, 2023
+- Sep 27, 2023: Code uploaded. 
+- Oct 16, 2023: Code issues fixed and added support for windows, Thanks to [sihangchen97](https://github.com/sihangchen97/Imitator/tree/main)
 
+### To-Do
+
+ - [ ] Releasing 3 personalized model[Boris, Kamala Harris, Trevor Noah] for style adaptation comparison on the external actors.
+   (If you need it immediately for upcoming CVPR 2024 deadline, please write me a mail)
 ## Installation
 
 Linux:

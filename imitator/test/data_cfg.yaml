@@ -17,9 +17,9 @@ data:
     sequence_for_training: "1 2"
     # 2 seq x 2 subj x 4 id : Render 16 seqs for train : 30 sec = 8 mins
     val_subjects: "FaceTalk_170811_03275_TA FaceTalk_170908_03277_TA"
-    sequence_for_validation: "21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40"
+    sequence_for_validation: "21 41"
     test_subjects: "FaceTalk_170809_00138_TA FaceTalk_170731_00024_TA"
-    sequence_for_testing: "21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40"
+    sequence_for_testing: "21 41"
 
 data_style_cfg:
   target: imitator.data.data_loader_actor_wise_custom_init.DataModuleFromConfig
