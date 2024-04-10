@@ -143,3 +143,6 @@ FLAMEModel/model
 FLAMEModel/flame_model.zip
 assets/release/mbp_weights_win03_weight05
 pretrained_model.zip
+assets/run_on_external_audio_3diface.py
+imitator/test/test_model_external_audio_3diface.py
+imitator/test/test_model_external_audio_with_sampling.py

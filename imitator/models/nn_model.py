@@ -223,10 +223,10 @@ class imitator(nn.Module):
     
         for i in range(frame_num):
             if i==0:
-                vertice_emb = obj_embedding.unsqueeze(1) # (1,1,feature_dim)
-                style_emb = vertice_emb
-                start_token = torch.zeros_like(vertice_emb)
+                style_emb = obj_embedding.unsqueeze(1) # (1,1,feature_dim)
+                start_token = torch.zeros_like(style_emb)
                 vertice_input = self.PPE(start_token)
+                vertice_emb = start_token
             else:
                 vertice_input = self.PPE(vertice_emb)
     
