@@ -50,11 +50,14 @@ Windows:
 ```
 download_asset.bat
 ```
+Mac:
+
+Follow the linux commands and use the `dowload_asset.sh`. Make sure to install `wget`, except change line 7 of `install.sh` to the version of python your machine is running.
 
 We will update 3 pretrained models
 - generalized_model_mbp (Generalized model on VOCAset)
 - subj0024_stg02_04seq (FaceTalk_170731_00024_TA personalized model)
-- subj0138_stg02_04seq (FaceTalk_170731_00024_TA peneralized model)
+- subj0138_stg02_04seq (FaceTalk_170731_00024_TA personalized model)
 
 ### Testing on external audio
 
