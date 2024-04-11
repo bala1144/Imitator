@@ -46,7 +46,7 @@ Mac:
 Follow the linux commands and use the `dowload_asset.sh`. Make sure to install `wget`, except change line 7 of `install.sh` to the version of python your machine is running.
 
 
-## Overview of pretrained models
+## Download assests (Pretrained models, masks etc)
 Linux and Mac:
 ```
 bash download_asset.sh

@@ -267,10 +267,10 @@ class imitator(nn.Module):
                 ## setup the starting frame
                 if i == 0:
                     obj_embedding = self.obj_vector(one_hot)
-                    vertice_emb = obj_embedding.unsqueeze(1)  # (1, 1, feature_dim)
-                    style_emb = vertice_emb
-                    start_token = torch.zeros_like(vertice_emb)
+                    style_emb = obj_embedding.unsqueeze(1)  # (1, 1, feature_dim)
+                    start_token = torch.zeros_like(style_emb)
                     vertice_input = self.PPE(start_token)
+                    vertice_emb = start_token
                 else:
                     vertice_input = self.PPE(vertice_emb)
 
@@ -315,10 +315,10 @@ class imitator(nn.Module):
         # generate the transformer features
         for i in range(frame_num):
             if i==0:
-                vertice_emb = obj_embedding.unsqueeze(1)  # (1,1,feature_dim)
-                style_emb = vertice_emb
-                start_token = torch.zeros_like(vertice_emb)
+                style_emb = obj_embedding.unsqueeze(1)  # (1,1,feature_dim)
+                start_token = torch.zeros_like(style_emb)
                 vertice_input = self.PPE(start_token)
+                vertice_emb = start_token
             else:
                 vertice_input = self.PPE(vertice_emb)
 
