@@ -24,6 +24,7 @@
 
  - [ ] Releasing 3 personalized model[Boris, Kamala Harris, Trevor Noah] for style adaptation comparison on the external actors.
    (If you need it immediately for upcoming CVPR 2024 deadline, please write me a mail)
+
 ## Installation
 
 Linux:
@@ -40,8 +41,13 @@ cd Imitator
 install.bat
 ```
 
+Mac:
+
+Follow the linux commands and use the `dowload_asset.sh`. Make sure to install `wget`, except change line 7 of `install.sh` to the version of python your machine is running.
+
+
 ## Overview of pretrained models
-Linux:
+Linux and Mac:
 ```
 bash download_asset.sh
 ```
@@ -50,35 +56,26 @@ Windows:
 ```
 download_asset.bat
 ```
-Mac:
-
-Follow the linux commands and use the `dowload_asset.sh`. Make sure to install `wget`, except change line 7 of `install.sh` to the version of python your machine is running.
 
 We will update 3 pretrained models
 - generalized_model_mbp (Generalized model on VOCAset)
 - subj0024_stg02_04seq (FaceTalk_170731_00024_TA personalized model)
 - subj0138_stg02_04seq (FaceTalk_170731_00024_TA personalized model)
 
-### Testing on external audio
+## Data Preparation
 
-To evaluate the external audio, you can use the demo audio on the `assets/demo/`
+### VOCA
+Download the [VOCA](https://voca.is.tue.mpg.de/) and prepare using the script from [Faceformer](https://github.com/EvelynFan/FaceFormer)
 ```
-python imitator/test/test_model_external_audio.py -m pretrained_model/generalized_model_mbp_vel --audio assets/demo/audio1.wav -t FaceTalk_170731_00024_TA -c 2 -r -d 
+git clone https://github.com/EvelynFan/FaceFormer.git
+cd FaceFormer/vocaset
+python process_voca_data.py
+cd ../..
 ```
-- `-a` path to the audio file
-- `-t` specify the subject of the VOCA
-- `-c` specify the condition[0,1...7] from VOCA used for testing
-- `-r` to render the results as videos
-- `-d` to dump the prediction as npy files
 
-### Testing on VOCA
-To evaluate the generalized/personalized model on VOCA
-```
-python imitator/test/test_model_voca.py -m pretrained_model/generalized_model_mbp_vel -r -d
-python imitator/test/test_model_voca.py -m pretrained_model/subj0024_stg02_04seq -r -d
-python imitator/test/test_model_voca.py -m pretrained_model/subj0138_stg02_04seq -r -d
-```
-- `-c` to specify the config of the dataset; edit the imitator/test/data_cfg.yml to point to your dataset path.
+### wav2vec model (optional, for offline use)
+
+Download wav2vec model, for example [wav2vec2-base-960h](https://huggingface.co/facebook/wav2vec2-base-960h) from [HuggingFace](https://huggingface.co/).
 
 ### Overriding config file (optional)
 
@@ -97,20 +94,30 @@ Windows:
 set VOCASET_PATH=<Path to vocaset folder>
 set WAV2VEC_PATH=<Path to wav2vec model folder (e.g. wav2vec2-base-960h)>
 ```
-## Data Preparation
 
-### VOCA
-Download the [VOCA](https://voca.is.tue.mpg.de/) and prepare using the script from [Faceformer](https://github.com/EvelynFan/FaceFormer)
+
+## Testing 
+
+### on external audio
+
+To evaluate the external audio, you can use the demo audio on the `assets/demo/`
 ```
-git clone https://github.com/EvelynFan/FaceFormer.git
-cd FaceFormer/vocaset
-python process_voca_data.py
-cd ../..
+python imitator/test/test_model_external_audio.py -m pretrained_model/generalized_model_mbp_vel --audio assets/demo/audio1.wav -t FaceTalk_170731_00024_TA -c 2 -r -d 
 ```
+- `-a` path to the audio file
+- `-t` specify the subject of the VOCA
+- `-c` specify the condition[0,1...7] from VOCA used for testing
+- `-r` to render the results as videos
+- `-d` to dump the prediction as npy files
 
-### wav2vec model (optional, for offline use)
-
-Download wav2vec model, for example [wav2vec2-base-960h](https://huggingface.co/facebook/wav2vec2-base-960h) from [HuggingFace](https://huggingface.co/).
+### on VOCA
+To evaluate the generalized/personalized model on VOCA
+```
+python imitator/test/test_model_voca.py -m pretrained_model/generalized_model_mbp_vel -r -d
+python imitator/test/test_model_voca.py -m pretrained_model/subj0024_stg02_04seq -r -d
+python imitator/test/test_model_voca.py -m pretrained_model/subj0138_stg02_04seq -r -d
+```
+- `-c` to specify the config of the dataset; edit the imitator/test/data_cfg.yml to point to your dataset path.
 
 ## Training models
 
